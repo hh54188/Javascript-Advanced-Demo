@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#simple-file').change(function (e) {
+                var files = e.target.files;
+                console.log(files);
+                for (var i = 0; i < files.length; i++) {
+                    var f = files[i];
+                    console.log('name: ', escape(f.name));
+                    console.log('size: ', f.size);
+                    console.log('lastModifiedDate: ', f.lastModifiedDate.toLocaleDateString());
+                }
+            })
+
+            $('#show-img').change(function (e) {
+                var f = e.target.files[0];
+                if (f.type.indexOf('image') > -1) {
+                    var reader = new FileReader();
+                    //这个回调和这个闭包搞不懂
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                            var img = $('<img src=' + e.target.result + ' />');
+                            img.appendTo($('body')).draggable();
+                        };
+                    })(f);
+                    reader.readAsDataURL(f);
+                }
+            })
+        })
+    </script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <input id="simple-file" type="file" name="files"/>
+    <input id="show-img" type="file" name="files">
+</body>
+</html>

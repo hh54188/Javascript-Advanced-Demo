@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+        function drawline(x,y){
+            var canvas=document.getElementById('can');
+            var context=canvas.getContext('2d');
+
+            context.beginPath();
+            context.moveTo(x,y);
+            context.lineTo(x + 1,y + 1);
+
+            context.strokeStyle='#000000';
+            context.lineWidth=5
+            context.lineCap  = 'square';
+            context.stroke();
+        }
+        $(function(){
+            window.x=0;window.y=0
+            var timer=setInterval(function(){
+                drawline(x,y);
+                x+=1;y+=1;
+            },20);
+        });
+    </script>
+    <style type="text/css">
+        canvas
+        {
+            border: 1px solid red;
+            position:absolute;
+            top:10px;
+            left:10px;
+        }
+        #wrapper
+        {
+            position: relative;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <canvas id="can" width="500px" heigth="500px"></canvas>
+    </div>
+
+</body>
+</html>

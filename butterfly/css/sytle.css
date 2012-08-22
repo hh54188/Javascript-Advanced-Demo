@@ -1,0 +1,86 @@
+#viewport-3d{
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    margin-top:100px;
+    border: 5px solid #000000;
+    position: relative;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+}
+#butterfly
+{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top:100px;
+    left: 100px;
+    border: 1px solid red;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+}
+.wing
+{
+    width: 100px;
+    height: 200px;
+    position: absolute;
+    top:0;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+
+
+}
+#leftwing
+{
+    background:green;
+    left:0;
+    -webkit-transform-origin: 100% 50%;
+    -webkit-transform:rotateY(80deg);
+
+    -webkit-animation-name: leftWingMove;
+   -webkit-animation-duration: 1s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-delay: 0s;
+   -webkit-animation-iteration-count: infinite ;
+   -webkit-animation-direction: normal;
+}
+#rightwing
+{
+    background:green;
+    right:0;
+    -webkit-transform-origin: 0% 50%;
+    -webkit-transform:rotateY(-80deg);
+
+    -webkit-animation-name: rightWingMove;
+   -webkit-animation-duration: 1s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-delay: 0s;
+   -webkit-animation-iteration-count: infinite ;
+   -webkit-animation-direction: normal;
+}
+
+@-webkit-keyframes leftWingMove {
+   0% {
+      -webkit-transform: rotateY(80deg);
+   }
+   50% {
+      -webkit-transform: rotateY(-80deg);
+   }
+   100%{
+      -webkit-transform: rotateY(80deg);
+   }
+}
+
+@-webkit-keyframes rightWingMove {
+   0% {
+      -webkit-transform: rotateY(-80deg);
+   }
+   50% {
+      -webkit-transform: rotateY(80deg);
+   }
+   100%{
+      -webkit-transform: rotateY(-80deg);
+   }
+}

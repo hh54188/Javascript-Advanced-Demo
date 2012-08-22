@@ -1,0 +1,73 @@
+body
+{
+    background: url("images/bg03.jpg") top center fixed no-repeat yellow;
+}
+#bg
+{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    margin: 0 auto;
+}
+.viewport-card
+{
+    /*background: #343434;*/
+    height: 443px;
+    margin-top: 20px;
+    position: relative;
+    -webkit-perspective: 1000px;
+
+}
+.flip-card
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 1s;
+}
+.flip-card.click
+{
+    -webkit-transform: rotateY(180deg);
+}
+.flip-card.disappear
+{
+    -webkit-transform: rotateY(90deg);
+}
+.card-face
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    overflow:hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-box-shadow:0 0 12px #000;
+}
+.back-face
+{
+    background: red;
+    -webkit-transform: rotateY(180deg);
+}
+.inner-shadow
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 900;
+}
+.cover
+{
+    position: absolute;
+    top:-10px;
+    left: -10px;
+    -webkit-transition: 0.3s;
+    height: 470px;
+    cursor: pointer;
+}
+.cover:hover
+{
+    -webkit-transform:scale(1.2);
+}

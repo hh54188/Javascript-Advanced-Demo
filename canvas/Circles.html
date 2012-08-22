@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="css/circles.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/traqball.js"></script>
+    <script type="text/javascript">
+        function drawCircle(theCanvas,lineWidth,x,y,radius,startAngle,endAngle){
+            var context=theCanvas.getContext('2d');
+            context.beginPath();
+            context.strokeStyle="#000000";
+            context.lineWidth=lineWidth;
+            context.arc(x,y,radius,(Math.PI/180)*startAngle,(Math.PI/180)*endAngle,false);
+            context.stroke();
+            context.closePath();
+        }
+
+        $(function(){
+//            var mytraqball =new Traqball({
+//                                        stage: "wrapper" //包裹的容器
+//                                    });
+
+            $('#translate').toggle(function(){
+                $("#container").addClass('contransform');
+
+                $('#one').addClass('oneRotate');
+                $('#two').addClass('twoRotate');
+                $('#three').addClass('threeRotate');
+                $('#four').addClass('fourRotate');
+            },function(){
+                $("#container").removeClass('contransform');
+
+                $('#one').removeClass('oneRotate');
+                $('#two').removeClass('twoRotate');
+                $('#three').removeClass('threeRotate');
+                $('#four').removeClass('fourRotate');
+            });
+            var oneCanvas=document.getElementById('oneCanvas');
+            var twoCanvas=document.getElementById('twoCanvas');
+            var threeCanvas=document.getElementById('threeCanvas');
+            var fourCanvas=document.getElementById('fourCanvas');
+            drawCircle(oneCanvas,50,150,150,125,0,270);
+            drawCircle(twoCanvas,40,150,150,85,0,270);
+            drawCircle(threeCanvas,38,150,150,50,0,270);
+            drawCircle(fourCanvas,40,150,150,30,0,270);
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="translate" id="translate">
+    <div id="wrapper">
+        <div id="container">
+            <div id="one" class="item">
+                <canvas id="oneCanvas" width="300px" height="300px"></canvas>
+            </div>
+            <div id="two" class="item">
+                <canvas id="twoCanvas"  width="300px" height="300px"></canvas>
+            </div>
+            <div id="three" class="item">
+                <canvas id="threeCanvas"  width="300px" height="300px"></canvas>
+            </div>
+            <div id="four" class="item">
+                <canvas id="fourCanvas"  width="300px" height="300px"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

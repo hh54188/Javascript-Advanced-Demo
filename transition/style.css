@@ -1,0 +1,65 @@
+*{ margin:0; padding: 0;}
+.perpective1000{
+    -moz-perspective: 1000px;
+    -webkit-perspective: 1000px;
+}
+.container{
+    width: 100%;
+    height: 100%;
+}
+.transition{
+    -moz-transition:all 0.6s ease-in-out;
+    -webkit-transition:all 0.6s ease-in-out;
+}
+.flipcard{
+    background: red;
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+.allowhover:hover{
+    -moz-animation-name: bounce;
+    -moz-animation-duration: 1s;
+    /*-moz-animation-timing-function: ease-in-out;*/
+    -moz-animation-iteration-count: infinite ;
+    -moz-animation-direction: normal;
+}
+@-moz-keyframes bounce {
+    0% {
+        top: 40px;
+    }
+    50% {
+        top: 0px;
+    }
+    55% {
+        top: 10px;
+    }
+    65% {
+        top: 30px;
+    }
+    95% {
+        top: 40px;
+    }
+    100% {
+        top: 40px;
+    }
+}
+.move-to-center{
+    background: yellow;
+    left: 200px;
+    top: 200px;
+    -moz-transform: rotateY(40deg);
+    -webkit-transform: rotateY(40deg);
+}
+.expend{
+    left:0px;
+    top: 0px;
+    height: 500px;
+    width: 500px;
+    -moz-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}

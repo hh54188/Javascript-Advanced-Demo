@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            window.$id="test";
+            $(document).mousedown(function(e){
+                window.$id=$(e.target).prop('id')
+                if($id!="goal")return false;
+                $('#'+$id+'').addClass("drag");
+
+                window.targetLeft=parseInt($('#'+$id+'').css('left'));
+                window.targetTop=parseInt($('#'+$id+'').css('top'));
+
+                window.targetX=parseInt(e.clientX);
+                window.targetY=parseInt(e.clientY);
+            }).mouseup(function(e){
+                $(".drag").removeClass('drag');
+            }).mousemove(function(e){
+                var mouseX=e.clientX;
+                var mouseY=e.clientY;
+                if($id!="test"){
+                    $('.drag').css({
+                        'left':e.clientX - targetX + targetLeft + "px",
+                        'top':e.clientY - targetY + targetTop + "px"
+                    })
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        #wrapper{
+            position: relative;
+            width: 800px;
+            height: 800px;
+            border: 1px solid #000000;
+        }
+        #goal{
+           background: yellow;
+           width: 50px;
+           height:50px;
+           position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="goal"></div>
+    </div>
+</body>
+</html>

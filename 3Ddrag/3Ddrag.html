@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript">
+        window.config={
+            "isDrag":false,
+            "width":500,
+            "height":300,
+            "offsetLeft":0,
+            "offsetTop":0,
+            "beginX":0,
+            "beginY":0
+        }
+        $(function(){
+            $('#wrapper').mousedown(function(e){
+                if($(e.target).parent('.parent').length==0||!$(e.target).hasClass('parent')){
+                    config.isDrag=true;
+                    config.offsetLeft=parseInt($('#wrapper').offset().left);
+                    config.offsetTop=parseInt($('#wrapper').offset().top);
+                    config.beginX = parseInt(e.clientX);
+                    config.beginY = parseInt(e.clientY);
+                 }
+
+            }).mousemove(function(e){
+                if(config.isDrag){
+                    var dx = parseInt(e.clientX) - config.beginX;
+                    if(dx<0){
+                        var left= -100 + Math.abs(dx);
+                        if(left<=0&&Math.abs(dx)>30){
+                            $('#bg').css('left',left+'px');
+                            var rightmiddle= 100 - Math.abs(dx);
+                            $('#middle').left('left',rightmiddle+'px');
+                            var rightfront= 120 - Math.abs(dx);
+                            $('#front').left('left',rightfront+'px');
+                        }
+                    }else{
+                        var left= -100 - Math.abs(dx);
+                        if(left>= -200&&Math.abs(dx)>30){
+                            $('#bg').css('left',left+'px');
+                            var right= -100 + Math.abs(dx);
+//                            $('#middle').css('left',right+'px');
+                        }
+                    }
+                }
+            }).mouseup(function(){
+                config.isDrag=false;
+                $('#bg').animate({'left':'-100px'},{duration:300});
+                $('#middle').animate({'left':'100px'},{duration:300});
+                $('#front').animate({'left':'200px'},{duration:300});
+            });
+            $(document).mouseup(function(){
+                config.isDrag=false;
+                $('#bg').animate({'left':'-100px'},{duration:300});
+                $('#middle').animate({'left':'100px'},{duration:300});
+                $('#front').animate({'left':'200px'},{duration:300});
+            });
+        });
+    </script>
+    <style type="text/css">
+        #wrapper{
+            width: 500px;
+            height: 300px;
+            border: 1px solid #000000;
+            overflow: hidden;
+            margin: 0 auto;
+            margin-top:100px;
+            position: relative;
+            -moz-user-select:none;
+        }
+        #bg{
+            width: 700px;
+            height: 500px;
+            position: absolute;
+            left:-100px;
+            top:-100px;
+            background: url("bg.jpg");
+        }
+        #middle{
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            left: 100px;
+            bottom:10px;
+            background: blue;
+        }
+        #front{
+            width: 100px;
+            height: 100px;
+            position:  absolute;
+            top:100px;
+            left: 200px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" class="parent">
+        <div id="bg"></div>
+        <div id="middle"></div>
+        <div id="front"></div>
+    </div>
+</body>
+</html>

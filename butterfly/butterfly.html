@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/traqball.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sytle.css">
+    <script type="text/javascript">
+        $(function(){
+            var mytraqball =new Traqball({
+                            stage: "viewport-3d" //包裹的容器
+                        });
+        });
+    </script>
+</head>
+<body>
+    <div id="viewport-3d">
+        <div id="butterfly">
+            <div id="leftwing" class="wing"></div>
+            <div id="rightwing" class="wing"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/core/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/core/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript">
+    	$(function () {
+    		$('input').change(function () {
+			    var percentage = $(this).val() / 100;
+			    $('#container').css('height', percentage * 100 + "px");
+
+			    var a = percentage * 100 / 2;
+			    var c = 50;
+
+			    var deg = Math.asin(a / c) * 180 / Math.PI;
+			    $('#top')[0].style.WebkitTransform = "rotateX(" + (deg - 90) + "deg)";
+			    $('#bottom')[0].style.WebkitTransform = "rotateX(" + (90 - deg) + "deg)";
+    		})
+    	})
+    </script>
+    <style type="text/css">
+        #container {
+          	-webkit-perspective: 100px;
+          	height: 100px;
+          	/*overflow: hidden;*/
+        }
+        div {
+          	height: 50px;
+          	width: 100px;
+          	-webkit-transform-style: preserve-3d;    
+          	position: relative;
+        }
+        #top {
+        	background: url('1.jpg') center top no-repeat;
+          	-webkit-transform-origin: 50% 0%;
+          	position: absolute;
+          	top: 0;
+          	border: 1px solid black;
+          	border-bottom: none;
+          	/*-webkit-transform: rotateX(60deg);*/
+        }
+        #bottom {
+        	background: url('1.jpg') center bottom no-repeat;
+            -webkit-transform-origin: 50% 100%;
+            position: absolute;
+            bottom: 0;
+            border: 1px solid black;
+          	border-top: none;
+          	/*-webkit-transform: rotateX(-60deg);*/
+        }
+
+    </style>
+</head>
+<body>
+	<input type="range" min="0" max="100" step="1" value="100">
+    <div id="container">
+        <div id="top"></div>
+        <div id="bottom"></div>
+    </div>​
+</body>
+</html>
