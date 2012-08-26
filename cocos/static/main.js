@@ -11,7 +11,10 @@ var cocos2dApp = cc.Application.extend({
         cc.Loader.shareLoader().onload = function () {
             cc.AppController.shareAppController().didFinishLaunchingWithOptions();
         };
+        cc.AudioEngine.getInstance().init("mp3, ogg, wav");
         cc.Loader.shareLoader().preload([
+            {type: "effect", src: "audio/Love!"},
+            {type: "bgm", src: "audio/Marry You"}
         ]);
     },
     applicationDidFinishLaunching:function () {
