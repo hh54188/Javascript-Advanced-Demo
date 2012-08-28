@@ -1,46 +1,60 @@
 var App = cc.LayerColor.extend({
+    sprite: null,
+    spriteFrameNamePrefix: "Walk_left",
+    spriteFrameindex: 0,
     init: function ()
     {
-        this.initWithColor(new cc.Color4B(0,0,0,255));
+        this._super();
+        this.initWithColor(new cc.Color4B(0, 0, 0, 255));
         var size = cc.Director.getInstance().getWinSize();
 
-        cc.AudioEngine.getInstance().setEffectsVolume(0.5);
-        cc.AudioEngine.getInstance().setBackgroundMusicVolume(0.5);
+        var cache = cc.SpriteFrameCache.getInstance();
+        cache.addSpriteFrames("sprites/spritesheet.plist", "sprites/spritesheet.png");
 
-        var menuItem1 = new cc.MenuItemFont.create("Play Sound",this,this.playSound);
-        var menuItem2 = new cc.MenuItemFont.create("Play Song",this,this.playSong);
-        var menuItem3 = new cc.MenuItemFont.create("Stop Playing Song",this,this.stopPlayingSound);
-        var menuItem4 = new cc.MenuItemFont.create("Exit",this,this.exit);
+        this.sprite = cc.Sprite.createWithSpriteFrameName(this.spriteFrameNamePrefix + "00.png");
+        this.sprite.setPosition(new cc.Point(300,300));
+        this.sprite.setScale(1);
+        this.addChild(this.sprite);
 
-        menuItem1.setPosition(new cc.Point(size.width/2,size.height/2+50));
-        menuItem2.setPosition(new cc.Point(size.width/2,size.height/2));
-        menuItem3.setPosition(new cc.Point(size.width/2,size.height/2-50));
-        menuItem4.setPosition(new cc.Point(size.width/2,size.height/2-100));
-
-        var menu = cc.Menu.create(menuItem1,menuItem2,menuItem3,menuItem4);
-        menu.setPosition(new cc.Point(0,0));
-
-        this.addChild(menu);
+        this.setKeyboardEnabled(true);
+        return this;
 
         return this;
     },
-    playSound:function(){
-        cc.log("Playing sound");
-        cc.AudioEngine.getInstance().playEffect("audio/Love!");
-    },
-    playSong:function(){
-        cc.log("Playing song");
-        cc.AudioEngine.getInstance().playBackgroundMusic("audio/Marry You",false);
-    },
-    stopPlayingSound:function(){
-        cc.log("Done playing song");
-        if(cc.AudioEngine.getInstance().isBackgroundMusicPlaying())
-        {
-            cc.AudioEngine.getInstance().stopBackgroundMusic();
+    onKeyUp:function(e){},
+    onKeyDown:function(e){
+        if(e == cc.KEY.left || e == cc.KEY.right){
+            var prevPrefix = this.spriteFrameNamePrefix;
+
+            if(e == cc.KEY.left)
+                this.spriteFrameNamePrefix = "Walk_left";
+            else
+                this.spriteFrameNamePrefix = "Walk_right";
+
+            //如果调换方向则index重置为0
+            if(prevPrefix !== this.spriteFrameNamePrefix)
+                this.spriteFrameIndex = 0;
+
+
+            if(this.spriteFrameIndex > 18)
+                this.spriteFrameIndex = 0;
+
+            var indexAsString;
+            if(this.spriteFrameIndex < 10)
+                indexAsString = "0" + this.spriteFrameIndex.toString();
+            else
+                indexAsString = this.spriteFrameIndex.toString();
+
+            this.removeChild(this.sprite);
+            this.sprite  = cc.Sprite.createWithSpriteFrameName(
+                this.spriteFrameNamePrefix + indexAsString + ".png"
+            );
+
+            this.sprite.setPosition(new cc.Point(300,300));
+            this.sprite.setScale(1);
+            this.addChild(this.sprite);
+            this.spriteFrameIndex++;
         }
-    },
-    exit:function(){
-        document.location.href = "http://www.gamefromscratch.com";
     }
 });
 

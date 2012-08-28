@@ -11,13 +11,11 @@ var cocos2dApp = cc.Application.extend({
         cc.Loader.shareLoader().onload = function () {
             cc.AppController.shareAppController().didFinishLaunchingWithOptions();
         };
-        cc.AudioEngine.getInstance().init("mp3, ogg, wav");
         cc.Loader.shareLoader().preload([
-            {type: "effect", src: "audio/Love!"},
-            {type: "bgm", src: "audio/Marry You"}
+            {type: "plist", src: "sprites/spritesheet.plist"}
         ]);
     },
-    applicationDidFinishLaunching:function () {
+    applicationDidFinishLaunching: function () {
         var director = cc.Director.getInstance();
         director.setDisplayStats(this.config['showFPS']);
         director.setAnimationInterval(1.0 / this.config['frameRate']);

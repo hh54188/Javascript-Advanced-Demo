@@ -4,4 +4,4 @@ app.configure(function () {
 	app.use(express.static(__dirname + '/static'));
 })
 
-app.listen(8000);
+app.listen(7000);
