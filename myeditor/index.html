@@ -10,8 +10,8 @@
 	<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.18.custom.css">
 	<!--html2canvas-->
-	<script type="text/javascript" src="js/html2canvas/html2canvas.min.js"></script>
-	<script type="text/javascript" src="js/html2canvas/jquery.plugin.html2canvas.js"></script>
+	<!--<script type="text/javascript" src="js/html2canvas/html2canvas.min.js"></script>-->
+	<!--<script type="text/javascript" src="js/html2canvas/jquery.plugin.html2canvas.js"></script>-->
 	<style type="text/css">
 		#drag {
 			border: 5px solid black;
@@ -22,39 +22,83 @@
 			width: 100%;
 			height: 100%;
 		}
-		#test-img {
-			position: absolute;
-			left: 0;
-			bottom: 0;
+		#preview-img {
 			border: 1px gray solid;
+			display: none;
+		}
+		#overlay {
+			background: rgba(0,0,0,0.7);
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 998;
+			display: none;
+		}
+		#ckeditor-wrap {
+			position: relative;
+			z-index: 999;
+		}
+		button {
+			display: inline-block;
+		}
+		#close-area {
+			float: right;
 		}
 	</style>
 	<script type="text/javascript">
 		$(function () {
 			var config = {
-				// font_names:"",
+				font_names:"Arial/Arial, Helvetica, sans-serif;Comic Sans MS/Comic Sans MS, cursive;Courier New/Courier New, Courier, monospace;Georgia/Georgia, serif;Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;Tahoma/Tahoma, Geneva, sans-serif;Times New Roman/Times New Roman, Times, serif;Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;Verdana/Verdana, Geneva, sans-serif",
 				resize_minWidth: 500,
 				resize_enabled: true,
 				// autoGrow_maxHeight: 500,
 				autoGrow_onStartup: true,
 				skin:'kama'
 			};
-
+			//init ckeditor
 			$('#ckeditor').ckeditor(config).ckeditor(function () {
-				// $('#cke_ckeditor').draggable();
+				console.log(CKEDITOR.config.font_names);
+				$('#ckeditor-wrap').hide();
 			});
-			
-			//screen shot
-			$('#screen-shot').click(function () {
+
+			var shutEditArea = function () {
+				$('#overlay').add('#ckeditor-wrap, #preview-img').fadeOut();
+
+				var frame = $('#img-iframe');
+				frame.contents().find('.screenShot').remove();
+				frame.contents().find('body').find('#container').empty();
+				$('#cke_ckeditor iframe').contents().find('.cke_show_borders').empty();
+			}
+
+			var openEditArea = function () {
+				$('#overlay').add('#ckeditor-wrap').fadeIn();
+			}
+
+			var reEdit = function () {
+				//do something to get html info
+				var sample = $('<p><span style="font-size:72px;"><span style="color:#0000cd;"><span style="background-color:#ffff00;">asdasd</span><span style="background-color: rgb(255, 255, 0); ">asdasd</span><span style="background-color: rgb(255, 255, 0); ">as</span></span><span style="background-color:#00ff00;">dasdasdasd</span></span></p>');
+				var sampleWidth = 600;
+
+				$('#cke_ckeditor').find('iframe').contents().find('body').empty().prepend(sample);
+				$('#cke_ckeditor').css({
+					width: sampleWidth + "px"
+				});
+			}
+
+			//cancel preview
+			$('#preview-img').click(function () {
+				$(this).hide();
+			})
+
+			window.setImgSrc = function (src) {
+				$('#preview-img').attr('src', src).fadeIn();
+			}			
+
+			var myScreenShot = function () {
 				var size = $('#cke_ckeditor'), width = parseInt(size.css('width')), height = parseInt(size.css('height'));
 				var content = $('#cke_ckeditor iframe').contents().find('.cke_show_borders').clone();
-
-				//new window
-				// var test = window.open("iframe.html", '_blank' ,"height=" + height + ", width=" + width);
-				// test.onload = function () {
-				// 	var body = $(test.document.body);
-				// 	body.find('#container').prepend(content.html());
-				// };
 
 				//inner iframe;
 				var frame = $('#img-iframe');
@@ -62,46 +106,49 @@
 				frame.contents().find('body').css({
 					width: width + "px",
 					height: height + "px"
-				}).end().find('#container').add('#count-down').show().empty().prepend(content.html());
+				}).end().find('#container').show().empty().prepend(content.html());
 
 				var screenshot = window.frames["testFrame"].screenshot;
-				screenshot();
-			})
-
-			window.setImgSrc = function (src) {
-				$('#test-img').attr('src', src)
+				screenshot();				
 			}
-
-			//drag:
-			$( "#drag" ).resizable({
-				minWidth: 500
-			}).draggable();
+			
+			//screen shot
+			$('#screen-shot').click(function () {
+				myScreenShot();
+			})
 
 			//edit again:
 			$('#edit-again').click(function () {
-				var sample = $('<p><span style="font-size:72px;"><span style="color:#0000cd;"><span style="background-color:#ffff00;">asdasd</span><span style="background-color: rgb(255, 255, 0); ">asdasd</span><span style="background-color: rgb(255, 255, 0); ">as</span></span><span style="background-color:#00ff00;">dasdasdasd</span></span></p>');
+				reEdit();
+			})
 
-				var sampleWidth = 600;
-				var sampleHeight = 600;
-				$('#cke_ckeditor').find('iframe').contents().find('body').empty().prepend(sample);
-				$('#cke_ckeditor').css({
-					width: sampleWidth + "px",
-					height: sampleHeight + "px"
-				});
+			//begin edit text
+			$('#edit-text').click(function () {
+				openEditArea();
+			})
 
+			//hide edit area
+			$('#close-area').click(function () {
+				shutEditArea();
 			})
 		})
 	</script>
 	<body>
-		<button id="screen-shot">截屏</button>
-		<button id="edit-again">再编辑</button>
-		<!-- <div id="drag"> -->
+		<button id="edit-text">编辑文字</button>
+
+		<div id="overlay"></div>
+		<div id="ckeditor-wrap">
+			<img id="preview-img" src="">
 			<textarea id="ckeditor"  class="ckeditor" name="editor1"></textarea>
-		<!-- </div> -->
-		<iframe style="opacity:0;" name="testFrame" id="img-iframe" src="iframe.html"></iframe>
-		<img id="test-img" src="">
+			<button id="screen-shot">预览</button>
+			<!-- <button id="edit-again">再编辑</button> -->
+			<button id="confirm-upload">确定上传</button>
+
+			<button id="close-area">关闭编辑区域</button>
+			<iframe style="opacity:0;" name="testFrame" id="img-iframe" src="iframe.html"></iframe>			
+		</div>
 	</body>
 </html>
 <script type="text/javascript">
-	$('#cke_ckeditor').draggable();
+
 </script>

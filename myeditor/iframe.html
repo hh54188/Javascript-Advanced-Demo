@@ -14,18 +14,8 @@
 	<script type="text/javascript" src="js/html2canvas/jquery.plugin.html2canvas.js"></script>
 	<script type="text/javascript">
 		var screenshot = function () {
-			setTimeout(function () {
-				$('#container').html2canvas();
-			},1000);
+			$('#container').html2canvas();
 		}
-
-		$(function () {
-			$('#screenshot').click(function () {
-				window.img;
-				if ($('#container').html().length == 0) return;
-				$('#container').html2canvas();
-			})			
-		})
 	</script>
 	<style type="text/css">
 		#container {
