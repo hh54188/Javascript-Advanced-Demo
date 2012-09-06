@@ -7,8 +7,6 @@ var JetSprite = cc.Sprite.extend({
         var size = cc.Director.getInstance().getWinSize();
         this.position_x = size.width / 2;
         this.position_y = size.height / 2;
-
-        console.log(this.position_x, this.position_y);
     },
     update:function(dt){
         this.setRotation(this._currentRotation);
@@ -20,13 +18,10 @@ var JetSprite = cc.Sprite.extend({
 	    {
             this._currentRotation--;
             this.position_x--;
-            console.log(this.position_x);
-
 	    }
         else if(e === cc.KEY.right)
             this._currentRotation++;
             this.position_x++;
-            console.log(this.position_x);
 
         if(this._currentRotation < 0) this._currentRotation = 360;
         if(this._currentRotation > 360) this._currentRotation = 0;
