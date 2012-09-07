@@ -23,12 +23,6 @@ var App = cc.LayerColor.extend(
     },
     update:function(dt){
     },
-    onTouchesEnded:function (pTouch,pEvent){
-        this.role.handleTouch(pTouch[0].getLocation());
-    },
-    onTouchesMoved:function(pTouch,pEvent){
-        this.role.handleTouchMove(pTouch[0].getLocation());
-    },
     onKeyUp:function(e){
 
     },

@@ -1,7 +1,7 @@
 var JetSprite = cc.Sprite.extend({
     _currentRotation:0,
-    position_x:0,
-    position_y:0,
+    // position_x:0,
+    // position_y:0,
     ctor:function(){
         this.initWithFile("images/jet.png");
         var size = cc.Director.getInstance().getWinSize();
@@ -9,22 +9,22 @@ var JetSprite = cc.Sprite.extend({
         this.position_y = size.height / 2;
     },
     update:function(dt){
-        this.setRotation(this._currentRotation);
+        // this.setRotation(this._currentRotation);
         this.setPosition(new cc.Point(this.position_x, this.position_y));
     },
     handleKey:function(e)
     {
 	    if(e === cc.KEY.left)
 	    {
-            this._currentRotation--;
+            // this._currentRotation--;
             this.position_x--;
 	    }
         else if(e === cc.KEY.right)
-            this._currentRotation++;
+            // this._currentRotation++;
             this.position_x++;
 
-        if(this._currentRotation < 0) this._currentRotation = 360;
-        if(this._currentRotation > 360) this._currentRotation = 0;
+        // if(this._currentRotation < 0) this._currentRotation = 360;
+        // if(this._currentRotation > 360) this._currentRotation = 0;
     }
     // handleTouch:function(touchLocation)
     // {

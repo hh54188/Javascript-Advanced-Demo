@@ -9,7 +9,6 @@ var MyThirdApp = cc.LayerColor.extend(
         this._jetSprite = new JetSprite();
 	    // this.setTouchEnabled(true);
 	    this.setKeyboardEnabled(true);
-
         this.setPosition(new cc.Point(0,0));
 
         this.addChild(this._jetSprite);

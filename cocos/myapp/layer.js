@@ -1,33 +1,25 @@
 var Role = cc.Sprite.extend({
 	position_x: 0,
 	position_y: 0,	
+    position_add: 5,
     ctor: function () {
-    	var size = cc.Director.getInstance().getWinSize();
-    	position_x = size / 2;
-    	position_y = size / 2;
         this.initWithFile("resource/sample.jpg");
+        var size = cc.Director.getInstance().getWinSize();
+        this.position_x = size.width / 2;
+        this.position_y = size.height / 2;
     },
     update: function (dt) {
-    	this.setPosition(position_x, position_y);
+    	this.setPosition(new cc.Point(this.position_x, this.position_y));
     },
     handleKey: function (e) {
         if(e === cc.KEY.left) {
-        	console.log('left');
-        	this.position_x++;
+        	this.position_x -= this.position_add;
         } else if (e === cc.KEY.right) {
-        	this.position_x--;
+        	this.position_x += this.position_add;
+        } else if (e === cc.KEY.up) {
+            this.position_y += this.position_add;
+        } else if (e === cc.KEY.down) {
+            this.position_y -= this.position_add;
         }
-    },
-	handleTouch:function(touchLocation)
-    {
-        if(touchLocation.x < 300)
-            this.position_x--;
-        else
-            this.position_x++;
-    },
-    handleTouchMove:function(touchLocation){
-        // Gross use of hardcoded width,height params.
-
-
     }
 })
