@@ -3,7 +3,7 @@
 	padding: 0;
 }
 section{
-	background: url('images/the-starry-night-blur.jpg') no-repeat fixed 50% 50%;
+	background: url('images/the-starry-night-blur.jpg') no-repeat fixed 50% 0%;
 	height: 1600px;
 	/*-webkit-filter: blur(10px);*/
 	position: relative;
