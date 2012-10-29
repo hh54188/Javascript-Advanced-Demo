@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/library/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript">
+      $(function () {
+        $('section').each(function () {
+          var $bgobj = $(this); // assigning the object
+          console.log($bgobj);
+          $(window).scroll(function() {
+              var yPos = -($(window).scrollTop() / $bgobj.data('speed'));
+              // Put together our final background position
+              var coords = '50% '+ yPos + 'px';
+              // Move the background
+              $bgobj.css({ backgroundPosition: coords });
+          });
+        });
+      })
+    </script>
+</head>
+<body>
+  <section id="bg" data-speed="10">
+      <article></article>
+  </section>
+</body>
+</html>
